@@ -43,7 +43,7 @@ table VBD_gr ScreeningType, c(min VBD max VBD)
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1*" "3929    3212" "p=0.0011""' 2 `""VDG 2*" "6216    6280" "p=0.0023""' 3 `""VDG 3" "3152     3655" "p=0.88""' 4 `""VDG 4" " 962     1136" "p=0.26""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.001""' 2 `""VDG 2" "n=6216    n=6280" "p=0.002""' 3 `""VDG 3" "n=3152     n=3655" "p=0.88""' 4 `""VDG 4" " n=962     n=1136" "p=0.26""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanrecall = recall (sd) sdrecall = recall (count) n = recall, by(ScreeningType VDG_5ed)
 gen prosentrecall = string(100 * meanrecall, "%8.1f") + "%"
@@ -51,7 +51,7 @@ gen hirecall = meanrecall + invttail(n-1,0.025)*(sdrecall / sqrt(n))
 gen lorecall = meanrecall - invttail(n-1,0.025)*(sdrecall / sqrt(n))
 graph twoway (bar meanrecall ScreeningType, fcolor(red%40)) (rcap hirecall lorecall ScreeningType, lcolor(blue%40)) (scatter meanrecall ScreeningType, ms(none) mlabel(prosentrecall) mlabpos(6)), ///   
 	by(VDG_5ed, title("A: Recall", ///
-	span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white) margin(medium)) ///
 	yscale(range(0 0.05)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Recall (%)") ///
 	ylabel(0(0.01)0.05 0 "0" 0.01 "1" 0.02 "2" 0.03 "3" 0.04 "4" 0.05 "5", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurrecall.gph, replace
@@ -59,7 +59,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1*" "3929    3212" "p=0.0004""' 2 `""VDG 2*" "6216    6280" "p=0.0001""' 3 `""VDG 3" "3152     3655" "p=0.95""' 4 `""VDG 4" " 962     1136" "p=0.21""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p<0.001""' 2 `""VDG 2" "n=6216    n=6280" "p<0.001""' 3 `""VDG 3" "n=3152     n=3655" "p=0.95""' 4 `""VDG 4" " n=962     n=1136" "p=0.21""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanFP = FP (sd) sdFP = FP (count) n = FP, by(ScreeningType VDG_5ed)
 gen prosentFP = string(100 * meanFP, "%8.1f") + "%"
@@ -75,7 +75,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "3929    3212" "p=0.44""' 2 `""VDG 2*" "6216    6280" "p=0.10""' 3 `""VDG 3" "3152     3655" "p=0.10""' 4 `""VDG 4" " 962     1136" "p=0.72""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.44""' 2 `""VDG 2" "n=6216    n=6280" "p=0.10""' 3 `""VDG 3" "n=3152     n=3655" "p=0.10""' 4 `""VDG 4" " n=962     n=1136" "p=0.72""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanbiopsi = biopsi (sd) sdbiopsi = biopsi (count) n = biopsi, by(ScreeningType VDG_5ed)
 gen prosentbiopsi = string(100 * meanbiopsi, "%8.1f") + "%"
@@ -91,7 +91,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "3929    3212" "p=0.96""' 2 `""VDG 2" "6216    6280" "p=0.31""' 3 `""VDG 3" "3152     3655" "p=0.82""' 4 `""VDG 4" " 962     1136" "p=0.98""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.96""' 2 `""VDG 2" "n=6216    n=6280" "p=0.31""' 3 `""VDG 3" "n=3152     n=3655" "p=0.82""' 4 `""VDG 4" " n=962     n=1136" "p=0.98""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanSDC = SDC (sd) sdSDC = SDC (count) n = SDC, by(ScreeningType VDG_5ed)
 gen prosentSDC = string(100 * meanSDC, "%8.2f") + "%"
@@ -107,7 +107,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "3929    3212" "p=0.15""' 2 `""VDG 2*" "6216    6280" "p=0.0099""' 3 `""VDG 3" "3152     3655" "p=0.86""' 4 `""VDG 4" " 962     1136" "p=0.59""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.15""' 2 `""VDG 2" "n=6216    n=6280" "p=0.01""' 3 `""VDG 3" "n=3152     n=3655" "p=0.86""' 4 `""VDG 4" " n=962     n=1136" "p=0.59""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanrecall = recall (mean) meanSDC = SDC (count) n = recall if recall == 1, by(ScreeningType VDG_5ed)
 gen meanPPV1 = meanSDC/meanrecall
@@ -124,7 +124,7 @@ restore
 
 preserve
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "3929    3212" "p=0.62""' 2 `""VDG 2*" "6216    6280" "p=0.0105""' 3 `""VDG 3" "3152     3655" "p=0.38""' 4 `""VDG 4" " 962     1136" "p=0.80""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.62""' 2 `""VDG 2" "n=6216    n=6280" "p=0.01""' 3 `""VDG 3" "n=3152     n=3655" "p=0.38""' 4 `""VDG 4" " n=962     n=1136" "p=0.80""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanbiopsi = recall (mean) meanSDC = SDC (count) n = biopsi if biopsi == 1, by(ScreeningType VDG_5ed)
 gen meanPPV2 = meanSDC/meanbiopsi
@@ -141,8 +141,8 @@ graph save figurPPV2.gph, replace
 restore 
 
 gr combine figurrecall.gph figurFP.gph figurbiopsi.gph figurSDC.gph figurPPV1.gph figurPPV2.gph, iscale(0.33) col(2)
-graph export figur2.png, replace height(2000) width(1600)
-graph export figur2_tif.tif, replace height(2000) width(1600)
+graph export figur2.png, replace height(4000) width(3200)
+graph export figur2_tif.tif, replace height(4000) width(3200)
 erase figurFP.gph 
 erase figurrecall.gph 
 erase figurbiopsi.gph 
