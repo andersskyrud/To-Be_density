@@ -43,7 +43,7 @@ table VBD_gr ScreeningType, c(min VBD max VBD)
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.001""' 2 `""VDG 2" "n=6216    n=6280" "p=0.002""' 3 `""VDG 3" "n=3152     n=3655" "p=0.88""' 4 `""VDG 4" " n=962     n=1136" "p=0.26""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p=0.001""' 2 `""VDG 2" "n=6216 n=6280" "p=0.002""' 3 `""VDG 3" "n=3152 n=3655" "p=0.88""' 4 `""VDG 4" " n=962 n=1136" "p=0.26""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanrecall = recall (sd) sdrecall = recall (count) n = recall, by(ScreeningType VDG_5ed)
 gen prosentrecall = string(100 * meanrecall, "%8.1f") + "%"
@@ -51,7 +51,7 @@ gen hirecall = meanrecall + invttail(n-1,0.025)*(sdrecall / sqrt(n))
 gen lorecall = meanrecall - invttail(n-1,0.025)*(sdrecall / sqrt(n))
 graph twoway (bar meanrecall ScreeningType, fcolor(red%40)) (rcap hirecall lorecall ScreeningType, lcolor(blue%40)) (scatter meanrecall ScreeningType, ms(none) mlabel(prosentrecall) mlabpos(6)), ///   
 	by(VDG_5ed, title("A: Recall", ///
-	span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white) margin(medium)) ///
+	span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white) margin(medium)) ///
 	yscale(range(0 0.05)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Recall (%)") ///
 	ylabel(0(0.01)0.05 0 "0" 0.01 "1" 0.02 "2" 0.03 "3" 0.04 "4" 0.05 "5", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurrecall.gph, replace
@@ -59,7 +59,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p<0.001""' 2 `""VDG 2" "n=6216    n=6280" "p<0.001""' 3 `""VDG 3" "n=3152     n=3655" "p=0.95""' 4 `""VDG 4" " n=962     n=1136" "p=0.21""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p<0.001""' 2 `""VDG 2" "n=6216 n=6280" "p<0.001""' 3 `""VDG 3" "n=3152 n=3655" "p=0.95""' 4 `""VDG 4" " n=962 n=1136" "p=0.21""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanFP = FP (sd) sdFP = FP (count) n = FP, by(ScreeningType VDG_5ed)
 gen prosentFP = string(100 * meanFP, "%8.1f") + "%"
@@ -67,7 +67,7 @@ gen hiFP = meanFP + invttail(n-1,0.025)*(sdFP / sqrt(n))
 gen loFP = meanFP - invttail(n-1,0.025)*(sdFP / sqrt(n))
 graph twoway (bar meanFP ScreeningType, fcolor(red%40)) (rcap hiFP loFP ScreeningType, lcolor(blue%40)) (scatter meanFP ScreeningType, ms(none) mlabel(prosentFP) mlabpos(6)), ///
 	by(VDG_5ed, title("B: False positives" ///
-	, span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	, span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
 	yscale(range(0 0.05)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("False positives (%)") ///
 	ylabel(0(0.01)0.05 0 "0" 0.01 "1" 0.02 "2" 0.03 "3" 0.04 "4" 0.05 "5", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurFP.gph, replace
@@ -75,7 +75,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.44""' 2 `""VDG 2" "n=6216    n=6280" "p=0.10""' 3 `""VDG 3" "n=3152     n=3655" "p=0.10""' 4 `""VDG 4" " n=962     n=1136" "p=0.72""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p=0.44""' 2 `""VDG 2" "n=6216 n=6280" "p=0.10""' 3 `""VDG 3" "n=3152 n=3655" "p=0.10""' 4 `""VDG 4" " n=962 n=1136" "p=0.72""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanbiopsi = biopsi (sd) sdbiopsi = biopsi (count) n = biopsi, by(ScreeningType VDG_5ed)
 gen prosentbiopsi = string(100 * meanbiopsi, "%8.1f") + "%"
@@ -83,7 +83,7 @@ gen hibiopsi = meanbiopsi + invttail(n-1,0.025)*(sdbiopsi / sqrt(n))
 gen lobiopsi = meanbiopsi - invttail(n-1,0.025)*(sdbiopsi / sqrt(n))
 graph twoway (bar meanbiopsi ScreeningType, fcolor(red%40)) (rcap hibiopsi lobiopsi ScreeningType, lcolor(blue%40)) (scatter meanbiopsi ScreeningType, ms(none) mlabel(prosentbiopsi) mlabpos(6)), ///   
 	by(VDG_5ed, title("C: Biopsy" ///
-	, span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	, span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
 	yscale(range(0 0.03)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Biopsy (%)") ///
 	ylabel(0(0.005)0.03 0 "0" 0.005 "0.5" 0.01 "1" 0.015 "1.5" 0.02 "2" 0.025 "2.5" 0.03 "3", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurbiopsi.gph, replace
@@ -91,7 +91,7 @@ restore
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.96""' 2 `""VDG 2" "n=6216    n=6280" "p=0.31""' 3 `""VDG 3" "n=3152     n=3655" "p=0.82""' 4 `""VDG 4" " n=962     n=1136" "p=0.98""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p=0.96""' 2 `""VDG 2" "n=6216 n=6280" "p=0.31""' 3 `""VDG 3" "n=3152 n=3655" "p=0.82""' 4 `""VDG 4" " n=962 n=1136" "p=0.98""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanSDC = SDC (sd) sdSDC = SDC (count) n = SDC, by(ScreeningType VDG_5ed)
 gen prosentSDC = string(100 * meanSDC, "%8.2f") + "%"
@@ -99,15 +99,15 @@ gen hiSDC = meanSDC + invttail(n-1,0.025)*(sdSDC / sqrt(n))
 gen loSDC = meanSDC - invttail(n-1,0.025)*(sdSDC / sqrt(n))
 graph twoway (bar meanSDC ScreeningType, fcolor(red%40)) (rcap hiSDC loSDC ScreeningType, lcolor(blue%40)) (scatter meanSDC ScreeningType, ms(none) mlabel(prosentSDC) mlabpos(6)), ///   
 	by(VDG_5ed, title("D: Screen-detected cancers" ///
-	, span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
-	yscale(range(0 0.015)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("SDC (%)") ///
+	, span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	yscale(range(0 0.015)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Screen-detected cancers (%)") ///
 	ylabel(0(0.002)0.014 0 "0" 0.002 "0.2" 0.004 "0.4" 0.006 "0.6" 0.008 "0.8" 0.01 "1" 0.012 "1.2" 0.014 "1.4", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurSDC.gph, replace
 restore 
 
 preserve 
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.15""' 2 `""VDG 2" "n=6216    n=6280" "p=0.01""' 3 `""VDG 3" "n=3152     n=3655" "p=0.86""' 4 `""VDG 4" " n=962     n=1136" "p=0.59""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p=0.15""' 2 `""VDG 2" "n=6216 n=6280" "p=0.01""' 3 `""VDG 3" "n=3152 n=3655" "p=0.86""' 4 `""VDG 4" " n=962 n=1136" "p=0.59""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanrecall = recall (mean) meanSDC = SDC (count) n = recall if recall == 1, by(ScreeningType VDG_5ed)
 gen meanPPV1 = meanSDC/meanrecall
@@ -115,16 +115,16 @@ gen prosentPPV1 = string(100 * meanPPV1, "%8.1f") + "%"
 gen hiPPV1 = meanPPV1 + 1.96*(sqrt((meanPPV1*(1-meanPPV1))/n))
 gen loPPV1 = meanPPV1 - 1.96*(sqrt((meanPPV1*(1-meanPPV1))/n))
 graph twoway (bar meanPPV1 ScreeningType, fcolor(red%40)) (rcap hiPPV1 loPPV1 ScreeningType, lcolor(blue%40)) (scatter meanPPV1 ScreeningType, ms(none) mlabel(prosentPPV1) mlabpos(6)), ///   
-	by(VDG_5ed, title("E: PPV-1", ///
-	span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
-	yscale(range(0 0.5)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("PPV-1 (%)") ///
+	by(VDG_5ed, title("E: Positive Predictive Value-1", ///
+	span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	yscale(range(0 0.5)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Positive Predictive Value-1 (%)") ///
 	ylabel(0(0.1)0.5 0 "0" 0.1 "10" 0.2 "20" 0.3 "30" 0.4 "40" 0.5 "50", grid angle(h))  plotregion(color(white)) graphregion(color(white))
 graph save figurPPV1.gph, replace
 restore 
 
 preserve
 replace ScreeningType = 0 if ScreeningType == 2
-label define VDG_5ed2 1 `""VDG 1" "n=3929    n=3212" "p=0.62""' 2 `""VDG 2" "n=6216    n=6280" "p=0.01""' 3 `""VDG 3" "n=3152     n=3655" "p=0.38""' 4 `""VDG 4" " n=962     n=1136" "p=0.80""'
+label define VDG_5ed2 1 `""VDG 1" "n=3929 n=3212" "p=0.62""' 2 `""VDG 2" "n=6216 n=6280" "p=0.01""' 3 `""VDG 3" "n=3152 n=3655" "p=0.38""' 4 `""VDG 4" " n=962 n=1136" "p=0.80""'
 label value VDG_5ed VDG_5ed2
 collapse (mean) meanbiopsi = recall (mean) meanSDC = SDC (count) n = biopsi if biopsi == 1, by(ScreeningType VDG_5ed)
 gen meanPPV2 = meanSDC/meanbiopsi
@@ -132,15 +132,15 @@ gen prosentPPV2 = string(100 * meanPPV2, "%8.1f") + "%"
 gen hiPPV2 = meanPPV2 + 1.96*(sqrt((meanPPV2*(1-meanPPV2))/n))
 gen loPPV2 = meanPPV2 - 1.96*(sqrt((meanPPV2*(1-meanPPV2))/n))
 graph twoway (bar meanPPV2 ScreeningType, fcolor(red%40)) (rcap hiPPV2 loPPV2 ScreeningType, lcolor(blue%40)) (scatter meanPPV2 ScreeningType, ms(none) mlabel(prosentPPV2) mlabpos(6)), ///   
-	by(VDG_5ed, title("F: PPV-3" ///
-	, span size(6)) subtitle("Volpara Density Grades") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
-	yscale(range(0 0.75)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("PPV-3 (%)") ///
+	by(VDG_5ed, title("F: Positive Predictive Value-3" ///
+	, span size(5)) subtitle("Volpara Density Grades (VDG)") rows(1) legend(off) note("")) subtitle(,fcolor(white) bcolor(white)) ///
+	yscale(range(0 0.75)) xlabel(0 "DBT" 1 "DM", noticks) xtitle("Screening technique") ytitle("Positive Predictive Value-3 (%)") ///
 	ylabel(0(0.1)0.75 0 "0" 0.1 "10" 0.2 "20" 0.3 "30" 0.4 "40" 0.5 "50" 0.6 "60" 0.7 "70", grid angle(h)) /// 
 	plotregion(color(white)) graphregion(color(white)) 
 graph save figurPPV2.gph, replace
 restore 
 
-gr combine figurrecall.gph figurFP.gph figurbiopsi.gph figurSDC.gph figurPPV1.gph figurPPV2.gph, iscale(0.33) col(2)
+gr combine figurrecall.gph figurFP.gph figurbiopsi.gph figurSDC.gph figurPPV1.gph figurPPV2.gph, iscale(0.33) col(2) caption("DBT: Digital Breast Tomosynthesis, DM: Digital Mammography", size(half_tiny))
 graph export figur2.png, replace height(4000) width(3200)
 graph export figur2_tif.tif, replace height(4000) width(3200)
 erase figurFP.gph 
