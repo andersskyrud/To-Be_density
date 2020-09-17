@@ -3,6 +3,8 @@ Repository for the article "Comparing Screening Outcomes for Digital Breast Tomo
 
 All analyses were performed in Stata MP 16 and the syntax can be read in the file "Analyses.do". Questions regarding this project can be directed to the corresponding author Prof. Solveig Hofvind at Solveig.Hofvind@kreftregisteret.no.
 
+https://doi.org/10.1148/radiol.2020201150 
+
 ### Abstract
 #### Background
 Digital breast tomosynthesis (DBT) is considered superior to digital mammography (DM) for women with dense breasts.
